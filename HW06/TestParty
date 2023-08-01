@@ -1,0 +1,5 @@
+Class: Warrior, Name: Harry, Health: 100, Base Attack: 40, Weapon: gun, Armor Class: 8
+Class: Warrior, Name: Vanessa, Health: 100, Base Attack: 68, Weapon: sword, Armor Class: 10
+Class: Warrior, Name: Emma, Health: 100, Base Attack: 60, Weapon: knife, Armor Class: 1
+Class: Mage, Name: Jessie, Health: 2, Base Attack: 2, Spell Attack: 3, Spell Slots: 1
+Class: Mage, Name: Toby, Health: 50, Base Attack: 2, Spell Attack: 3, Spell Slots: 1
