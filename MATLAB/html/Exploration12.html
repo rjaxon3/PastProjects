@@ -1,0 +1,393 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Exploration12</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-13"><meta name="DC.source" content="Exploration12.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Part 1: first data set</a></li><li><a href="#3">first model: linear y=a0+a1*x</a></li><li><a href="#4">second model: full quadratic y=a0+a1*x+a2*x^2</a></li><li><a href="#5">third model: [STUDENT FILL IN:] cubic y=a0+a1*x+a2*x^2+a3*x^3</a></li><li><a href="#6">answer questions: [STUDENT FILL IN:] answer questions as comments</a></li><li><a href="#7">Part 2: student created data set must have at least 6 data points</a></li><li><a href="#8">fourth model: [STUDENT FILL IN:]  cosine + exponential y = a0+a1*cos(x)+a2*exp(x)</a></li></ul></div><pre class="codeinput"><span class="comment">%%MATLAB EXPLORATION 12</span>
+<span class="comment">%Rhea Jaxon</span>
+</pre><h2 id="2">Part 1: first data set</h2><p>data is given by an mx2 matrix with x-values in column 1 and y-values in column 2</p><pre class="codeinput">data1=[ 1 8 ; 2 6 ; 4 5 ; 5 7 ; 8 16 ];
+<span class="comment">% extracts the x-values in column 1</span>
+x=data1(:,1);
+<span class="comment">% extracts the y-values in column 2</span>
+y=data1(:,2);
+</pre><h2 id="3">first model: linear y=a0+a1*x</h2><p>constructs the design matrix which is the coefficient matrix of the system Ax=b obtained from plugging in data points into the model</p><pre class="codeinput">A=[1 x(1) ;
+   1 x(2) ;
+   1 x(3) ;
+   1 x(4) ;
+   1 x(5) ]
+<span class="comment">% b vector is just the y-values</span>
+b=y;
+<span class="comment">% gets xhat least squares solution using fact that A has linearly</span>
+<span class="comment">% independent columns so A^T*A is invertible - note A' is MATLAB transpose</span>
+xhat=inv(A'*A)*A'*b;
+<span class="comment">% extracts alpha and beta values from the xhat vector</span>
+a0=xhat(1);
+a1=xhat(2);
+<span class="comment">% defines the function for plotting</span>
+<span class="comment">% WARNING: you must use .* for 'times' and .^ for 'exponent' or else</span>
+<span class="comment">% MATLAB will give an error code</span>
+f1=@(x) a0+a1.*x;
+<span class="comment">% compute the least squares error ||A*xhat-b||</span>
+errorLine=sqrt((A*xhat-b)'*(A*xhat-b))
+<span class="comment">% draws figure</span>
+figure(1)
+fplot(f1,[0 8])
+hold <span class="string">on</span>
+plot(x,y,<span class="string">'.'</span>,<span class="string">'markersize'</span>,28)
+hold <span class="string">off</span>
+</pre><pre class="codeoutput">
+A =
+
+     1     1
+     1     2
+     1     4
+     1     5
+     1     8
+
+
+errorLine =
+
+    6.0305
+
+</pre><img vspace="5" hspace="5" src="Exploration12_01.png" alt=""> <h2 id="4">second model: full quadratic y=a0+a1*x+a2*x^2</h2><p>[STUDENT FILL IN:] student should construct the design matrix which is the coefficient matrix of the system Ax=b obtained from plugging in data points into the model y=a0+a1*x+a2*x^2</p><pre class="codeinput">A=[ 1 x(1) x(1)^2;
+    1 x(2) x(2)^2;
+    1 x(3) x(3)^2;
+    1 x(4) x(4)^2;
+    1 x(5) x(5)^2]
+<span class="comment">% copy-pasted/modified code from part 1</span>
+b=y;
+xhat=inv(A'*A)*A'*b;
+a0=xhat(1);
+a1=xhat(2);
+a2=xhat(3);
+<span class="comment">% defines the function for plotting</span>
+<span class="comment">% WARNING: you must use .* for 'times' and .^ for 'exponent' or else</span>
+<span class="comment">% MATLAB will give an error code</span>
+f2=@(x) a0+a1.*x+a2.*x.^2;
+<span class="comment">% least squares error ||A*xhat-b||</span>
+errorQuad=sqrt((A*xhat-b)'*(A*xhat-b))
+<span class="comment">% draws figure</span>
+figure(2)
+fplot(f2,[0 8])
+hold <span class="string">on</span>
+plot(x,y,<span class="string">'.'</span>,<span class="string">'markersize'</span>,28)
+hold <span class="string">off</span>
+</pre><pre class="codeoutput">
+A =
+
+     1     1     1
+     1     2     4
+     1     4    16
+     1     5    25
+     1     8    64
+
+
+errorQuad =
+
+    0.6055
+
+</pre><img vspace="5" hspace="5" src="Exploration12_02.png" alt=""> <h2 id="5">third model: [STUDENT FILL IN:] cubic y=a0+a1*x+a2*x^2+a3*x^3</h2><p>[STUDENT FILL IN:] student shout construct the design matrix which is the coefficient matrix of the system Ax=b obtained from plugging in data points into the model</p><pre class="codeinput">A=[1 x(1) x(1)^2 x(1)^3;
+   1 x(2) x(2)^2 x(2)^3;
+   1 x(3) x(3)^2 x(3)^3;
+   1 x(4) x(4)^2 x(4)^3;
+   1 x(5) x(5)^2 x(5)^3]
+b=y;
+xhat=inv(A'*A)*A'*b;
+<span class="comment">% [STUDENT FILL IN:] you may need to add/delete variables depending on how</span>
+<span class="comment">% many terms your model has, e.g. three terms needs up to a2=xhat(3)</span>
+a0=xhat(1);
+a1=xhat(2);
+a2=xhat(3);
+a3=xhat(4);
+<span class="comment">% [STUDENT FILL IN:] define the function for plotting</span>
+<span class="comment">% WARNING: you must use .* for 'times' and .^ for 'exponent' or else</span>
+<span class="comment">% MATLAB will give an error code</span>
+f3=@(x) a0+a1.*x+a2.*x.^2+a3.*x.^3;
+<span class="comment">% least squares error is ||A*xhat-b||</span>
+errorStudentModelforData1=sqrt((A*xhat-b)'*(A*xhat-b))
+<span class="comment">% draws figure</span>
+figure(3)
+fplot(f3,[0 8])
+hold <span class="string">on</span>
+plot(x,y,<span class="string">'.'</span>,<span class="string">'markersize'</span>,28)
+hold <span class="string">off</span>
+</pre><pre class="codeoutput">
+A =
+
+     1     1     1     1
+     1     2     4     8
+     1     4    16    64
+     1     5    25   125
+     1     8    64   512
+
+
+errorStudentModelforData1 =
+
+    0.4407
+
+</pre><img vspace="5" hspace="5" src="Exploration12_03.png" alt=""> <h2 id="6">answer questions: [STUDENT FILL IN:] answer questions as comments</h2><p>Q1: which model has the best error (smallest error value)? Ans1: Quadratic Q2: what does the value of the error <tt>|A*hat-b</tt>| represent geometrically? Ans2: The standard deviation from the actual data points on the graph.</p><h2 id="7">Part 2: student created data set must have at least 6 data points</h2><p>[STUDENT FILL IN:] create a data2 matrix where the data is given by an mx2 matrix with m&gt;5 (at least 6 data points) with x-values in column 1 and y-values in column 2</p><pre class="codeinput">data2=[2 2; 5 7; 4 3; 1 3; 7 4; 9 3];
+<span class="comment">% extracts the x-values in column 1</span>
+x=data2(:,1);
+<span class="comment">% extracts the y-values in column 2</span>
+y=data2(:,2);
+</pre><h2 id="8">fourth model: [STUDENT FILL IN:]  cosine + exponential y = a0+a1*cos(x)+a2*exp(x)</h2><p>[STUDENT FILL IN:] student should construct the design matrix which is the coefficient matrix of the system Ax=b obtained from plugging in data points into the model</p><pre class="codeinput">A=[1 cos(x(1)) exp(x(1));
+   1 cos(x(2)) exp(x(2));
+   1 cos(x(3)) exp(x(3));
+   1 cos(x(4)) exp(x(4));
+   1 cos(x(5)) exp(x(5));
+   1 cos(x(6)) exp(x(6))]
+b=y;
+xhat=inv(A'*A)*A'*b;
+<span class="comment">% [STUDENT FILL IN:] you may need to add/delete variables depending on how</span>
+<span class="comment">% many terms your model has</span>
+a0=xhat(1);
+a1=xhat(2);
+a2=xhat(3);
+<span class="comment">% [STUDENT FILL IN:] define the function for plotting</span>
+<span class="comment">% WARNING: you must use .* for 'times' and .^ for 'exponent' or else</span>
+<span class="comment">% MATLAB will give an error code</span>
+f4=@(x) a0+a1.*cos(x)+a2.*exp(x);
+<span class="comment">% least squares error is ||A*xhat-b||</span>
+errorStudentModelforData2=sqrt((A*xhat-b)'*(A*xhat-b))
+<span class="comment">% draws figure</span>
+<span class="comment">% [STUDENT FILL IN:] You may need to modify the range of the fplot second</span>
+<span class="comment">% argument [0 8] if your x-values go outside the range 0 &lt;= x &lt;= 8</span>
+figure(4)
+fplot(f4,[0 8])
+hold <span class="string">on</span>
+plot(x,y,<span class="string">'.'</span>,<span class="string">'markersize'</span>,28)
+hold <span class="string">off</span>
+</pre><pre class="codeoutput">
+A =
+
+   1.0e+03 *
+
+    0.0010   -0.0004    0.0074
+    0.0010    0.0003    0.1484
+    0.0010   -0.0007    0.0546
+    0.0010    0.0005    0.0027
+    0.0010    0.0008    1.0966
+    0.0010   -0.0009    8.1031
+
+
+errorStudentModelforData2 =
+
+    3.5229
+
+</pre><img vspace="5" hspace="5" src="Exploration12_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%%MATLAB EXPLORATION 12
+%Rhea Jaxon
+
+%% Part 1: first data set  
+% data is given by an mx2 matrix with x-values in column 1 
+% and y-values in column 2
+data1=[ 1 8 ; 2 6 ; 4 5 ; 5 7 ; 8 16 ];
+% extracts the x-values in column 1
+x=data1(:,1);
+% extracts the y-values in column 2
+y=data1(:,2);
+
+
+%% first model: linear y=a0+a1*x
+% constructs the design matrix which is the coefficient matrix of the system
+% Ax=b obtained from plugging in data points into the model
+A=[1 x(1) ; 
+   1 x(2) ; 
+   1 x(3) ; 
+   1 x(4) ; 
+   1 x(5) ]
+% b vector is just the y-values
+b=y;
+% gets xhat least squares solution using fact that A has linearly
+% independent columns so A^T*A is invertible - note A' is MATLAB transpose
+xhat=inv(A'*A)*A'*b;
+% extracts alpha and beta values from the xhat vector
+a0=xhat(1);
+a1=xhat(2);
+% defines the function for plotting
+% WARNING: you must use .* for 'times' and .^ for 'exponent' or else 
+% MATLAB will give an error code
+f1=@(x) a0+a1.*x;
+% compute the least squares error ||A*xhat-b||
+errorLine=sqrt((A*xhat-b)'*(A*xhat-b))
+% draws figure
+figure(1)
+fplot(f1,[0 8])
+hold on
+plot(x,y,'.','markersize',28)
+hold off
+
+
+%% second model: full quadratic y=a0+a1*x+a2*x^2
+% [STUDENT FILL IN:] student should construct the design matrix which 
+% is the coefficient matrix of the system Ax=b obtained from plugging 
+% in data points into the model y=a0+a1*x+a2*x^2
+A=[ 1 x(1) x(1)^2;
+    1 x(2) x(2)^2;
+    1 x(3) x(3)^2;
+    1 x(4) x(4)^2;
+    1 x(5) x(5)^2]
+% copy-pasted/modified code from part 1
+b=y;
+xhat=inv(A'*A)*A'*b;
+a0=xhat(1);
+a1=xhat(2);
+a2=xhat(3);
+% defines the function for plotting
+% WARNING: you must use .* for 'times' and .^ for 'exponent' or else 
+% MATLAB will give an error code
+f2=@(x) a0+a1.*x+a2.*x.^2;
+% least squares error ||A*xhat-b||
+errorQuad=sqrt((A*xhat-b)'*(A*xhat-b))
+% draws figure
+figure(2)
+fplot(f2,[0 8])
+hold on
+plot(x,y,'.','markersize',28)
+hold off
+
+%% third model: [STUDENT FILL IN:] cubic y=a0+a1*x+a2*x^2+a3*x^3
+% [STUDENT FILL IN:] student shout construct the design matrix which 
+% is the coefficient matrix of the system Ax=b obtained from plugging 
+% in data points into the model
+A=[1 x(1) x(1)^2 x(1)^3;
+   1 x(2) x(2)^2 x(2)^3;
+   1 x(3) x(3)^2 x(3)^3;
+   1 x(4) x(4)^2 x(4)^3;
+   1 x(5) x(5)^2 x(5)^3]
+b=y;
+xhat=inv(A'*A)*A'*b;
+% [STUDENT FILL IN:] you may need to add/delete variables depending on how
+% many terms your model has, e.g. three terms needs up to a2=xhat(3)
+a0=xhat(1);
+a1=xhat(2);
+a2=xhat(3);
+a3=xhat(4);
+% [STUDENT FILL IN:] define the function for plotting
+% WARNING: you must use .* for 'times' and .^ for 'exponent' or else 
+% MATLAB will give an error code
+f3=@(x) a0+a1.*x+a2.*x.^2+a3.*x.^3;
+% least squares error is ||A*xhat-b||
+errorStudentModelforData1=sqrt((A*xhat-b)'*(A*xhat-b))
+% draws figure
+figure(3)
+fplot(f3,[0 8])
+hold on
+plot(x,y,'.','markersize',28)
+hold off
+
+%% answer questions: [STUDENT FILL IN:] answer questions as comments
+% Q1: which model has the best error (smallest error value)?
+% Ans1: Quadratic
+% Q2: what does the value of the error ||A*hat-b|| represent geometrically?
+% Ans2: The standard deviation from the actual data points on the graph.
+
+%% Part 2: student created data set must have at least 6 data points
+% [STUDENT FILL IN:] create a data2 matrix where the data is 
+% given by an mx2 matrix with m>5 (at least 6 data points)
+% with x-values in column 1 
+% and y-values in column 2
+data2=[2 2; 5 7; 4 3; 1 3; 7 4; 9 3];
+% extracts the x-values in column 1
+x=data2(:,1);
+% extracts the y-values in column 2
+y=data2(:,2);
+
+%% fourth model: [STUDENT FILL IN:]  cosine + exponential y = a0+a1*cos(x)+a2*exp(x)
+% [STUDENT FILL IN:] student should construct the design matrix which 
+% is the coefficient matrix of the system Ax=b obtained from plugging 
+% in data points into the model
+A=[1 cos(x(1)) exp(x(1));
+   1 cos(x(2)) exp(x(2));
+   1 cos(x(3)) exp(x(3));
+   1 cos(x(4)) exp(x(4));
+   1 cos(x(5)) exp(x(5));
+   1 cos(x(6)) exp(x(6))]
+b=y;
+xhat=inv(A'*A)*A'*b;
+% [STUDENT FILL IN:] you may need to add/delete variables depending on how
+% many terms your model has
+a0=xhat(1);
+a1=xhat(2);
+a2=xhat(3);
+% [STUDENT FILL IN:] define the function for plotting
+% WARNING: you must use .* for 'times' and .^ for 'exponent' or else 
+% MATLAB will give an error code
+f4=@(x) a0+a1.*cos(x)+a2.*exp(x);
+% least squares error is ||A*xhat-b||
+errorStudentModelforData2=sqrt((A*xhat-b)'*(A*xhat-b))
+% draws figure
+% [STUDENT FILL IN:] You may need to modify the range of the fplot second
+% argument [0 8] if your x-values go outside the range 0 <= x <= 8
+figure(4)
+fplot(f4,[0 8])
+hold on
+plot(x,y,'.','markersize',28)
+hold off
+##### SOURCE END #####
+--></body></html>
