@@ -1,0 +1,10 @@
+Java HW09 Modifications
+
+Command statements : javac --module-path /Users/rhea/Desktop/CS1331/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.media ToDoList.java
+java --module-path /Users/rhea/Desktop/CS1331/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.media ToDoList
+
+- Created notepad aesthetic with Comic Sans font, lines, and shapes for the background of GUI
+- Created clear button which clears all queued tasks and updates completed task counter
+- Added crisp click sounds when user clicks a button for ASMR
+- Added a popup alert notification warning when user tries to add in tasks incorrectly
+- Added in ComboBoxes instead of ChoiceBoxes so that users have more freedom in what type of tasks they could do and how long they do it for
